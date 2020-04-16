@@ -49,4 +49,30 @@ class BookInstance(models.Model):
     )
 
     status = models.CharField(max_length = 1, choices=LOAN_STATUS, blank=True, default = 'm', help_text = "Book status")
+    class Meta:
+        ordering = ['due_back']
+    def __str__(self):
+        """string for representing Model object"""
+        return f'{self.id}({self.book.title})'
+
+
+class author:
+    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    date_of_birth=models.DateField(null=True, blank = True)
+
+    class Meta:
+        ordering = ['last_name', 'first_name']
+
+
+
+
+
+
+
+
+
+
+
+
 
