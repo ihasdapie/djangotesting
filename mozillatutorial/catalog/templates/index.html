@@ -1,0 +1,22 @@
+{% extends "base_generic.html"%}
+
+{% block content %}
+
+<h1>Local Library Home</h1>
+<p>Welcome to Local Library, a website created by <em> Brian Chen with the Mozilla Django tutorial</em>!</p> 
+<h2>dynamic content</h2>
+<p>this library has the following record counts:</p>
+<ul>
+    
+<!--
+    Under dynamic content, put variables in { {   }} (ignore that space) double curvy brackets
+    Note that this should be the same as the variables here are the *KEYS* 
+    passed in the context dictionary of the view: the view takes the *VALUE* variable from 
+    the model
+-->
+    <li><strong>Books: </strong>{{num_books}}</li>
+    <li><strong>Total Copies: </strong>{{num_instances}}</li>
+    <li><strong>Copies avaliable: </strong>{{num_instances_avaliable}}</li>
+    <li><strong>Authors: </strong>{{num_authors}}</li>
+</ul>
+{% endblock %}

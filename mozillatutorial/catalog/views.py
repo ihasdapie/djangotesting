@@ -17,7 +17,7 @@ def index(request):
     context = {
         'num_books' : num_books,
         'num_instances': num_instances,
-        'num_authors': num_authors.
+        'num_authors': num_authors,
         'num_instances_avaliable':num_instances_avaliable,
     }
     #return w/ index.html template & defined variables
