@@ -25,17 +25,16 @@ class BookInstance(models.Model):
     #borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     LOAN_STATUS = (
-        ('d', 'Maintenance'),
+        ('m', 'Maintenance'),
         ('o', 'On loan'),
         ('a', 'Available'),
         ('r', 'Reserved'),
     )
-
     status = models.CharField(
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
-        default='d',
+        default='m',
         help_text='Book availability')
 
     class Meta:
@@ -60,9 +59,13 @@ class Book(models.Model):
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
 
     display_genre.short_description = "Genre"
+
     def __str__(self):
         """String for representing the Model object."""
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('book-detail', args=[str(self.id)])
 
 
 
@@ -81,13 +84,8 @@ class Author(models.Model):
         """String for representing the Model object."""
         return '{0}, {1}'.format(self.last_name, self.first_name)
 
-
-
-
-
-
-
-
+    def get_absolute_url(self):
+        return revese('author-detail', args=[str(self.id)])
 
 
 
