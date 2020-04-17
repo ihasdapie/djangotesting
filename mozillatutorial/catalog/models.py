@@ -1,5 +1,9 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from datetime import date
+
+
 import uuid
 
 # Create your models here
@@ -54,11 +58,16 @@ class Book(models.Model):
                             help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn'
                                      '">ISBN number</a>')
     genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank = True)
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        else:
+            return False
 
     def display_genre(self):
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
-
-    display_genre.short_description = "Genre"
 
     def __str__(self):
         """String for representing the Model object."""
@@ -66,6 +75,9 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
+
+    display_genre.short_description = "Genre"
+
 
 
 
